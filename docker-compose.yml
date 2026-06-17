@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
 
   backend:
@@ -5,6 +7,14 @@ services:
     container_name: statrush_backend
     ports:
       - "5001:5000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: statrush
+      DB_USER: postgres
+      DB_PASSWORD: postgres
 
   frontend:
     build: ./frontend
@@ -13,3 +23,19 @@ services:
       - "3001:5173"
     depends_on:
       - backend
+
+  db:
+    image: postgres:16
+    container_name: statrush_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: statrush
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
