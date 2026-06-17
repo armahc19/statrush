@@ -1,0 +1,55 @@
+{
+  "count": 5,
+  "results": [
+    {
+      "id": 204851,
+      "league_id": 49,
+      "home_team": "Kashiwa Reysol",
+      "away_team": "FC Tokyo",
+      "event_date": "2026-06-05T07:00:00+00:00",
+      "status": "finished",
+      "home_score": 1,
+      "away_score": 3
+    },
+    {
+      "id": 204852,
+      "league_id": 12,
+      "home_team": "Brazil",
+      "away_team": "Argentina",
+      "event_date": "2026-06-05T13:00:00+00:00",
+      "status": "finished",
+      "home_score": 2,
+      "away_score": 2
+    },
+    {
+      "id": 204853,
+      "league_id": 31,
+      "home_team": "Canada",
+      "away_team": "Ireland",
+      "event_date": "2026-06-05T16:00:00+00:00",
+      "status": "finished",
+      "home_score": 0,
+      "away_score": 1
+    },
+    {
+      "id": 204854,
+      "league_id": 22,
+      "home_team": "Spain",
+      "away_team": "Germany",
+      "event_date": "2026-06-05T18:30:00+00:00",
+      "status": "finished",
+      "home_score": 3,
+      "away_score": 2
+    },
+    {
+      "id": 204855,
+      "league_id": 18,
+      "home_team": "Nigeria",
+      "away_team": "Ghana",
+      "event_date": "2026-06-05T20:00:00+00:00",
+      "status": "finished",
+      "home_score": 1,
+      "away_score": 1
+    }
+  ]
+}

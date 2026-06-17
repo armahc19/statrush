@@ -1,0 +1,30 @@
+{
+  "goals": [
+    {
+      "minute": 9,
+      "description": "Sithole's pocket is picked on the edge of his own box, allowing Quinones to fire home the first goal of the World Cup - and send the Azteca Stadium into delirium"
+    },
+    {
+      "minute": 9,
+      "scorer": "Quinones",
+      "assist": null
+    },
+    {
+      "minute": 67,
+      "description": "With the nerves starting to creep in, Jimenez headed in at the far post to double Mexico's lead"
+    },
+    {
+      "minute": 67,
+      "scorer": "Jim\u00e9nez",
+      "assist": "Alvarado"
+    }
+  ],
+  "cards": [
+    {
+      "player": "s",
+      "type": "red",
+      "minute": 50
+    }
+  ],
+  "substitutions": []
+}

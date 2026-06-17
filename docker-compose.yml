@@ -1,0 +1,15 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: statrush_backend
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: statrush_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

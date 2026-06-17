@@ -1,0 +1,114 @@
+[
+  {
+    "event_id": 30001,
+    "incidents": [
+      { "type": "goal", "minute": 12, "player": "Vinicius Jr", "team": "Brazil" },
+      { "type": "goal", "minute": 33, "player": "Messi", "team": "Argentina" },
+      { "type": "goal", "minute": 78, "player": "Rodrygo", "team": "Brazil" },
+      { "type": "card", "minute": 40, "player": "Otamendi",  "team": "Argentina" ,"card_type": "yellow"},
+      { "type": "substitution", "minute": 70, "player_out": "Neymar", "player_in": "Martinelli" }
+    ]
+  },
+  {
+    "event_id": 30002,
+    "incidents": [
+      { "type": "goal", "minute": 10, "player": "Mbappe", "team": "France" },
+      { "type": "goal", "minute": 55, "player": "Musiala", "team": "Germany" },
+      { "type": "goal", "minute": 66, "player": "Griezmann", "team": "France" },
+      { "type": "card", "minute": 30, "player": "Kimmich", "card_type": "yellow" },
+      { "type": "substitution", "minute": 80, "player_out": "Havertz", "player_in": "Füllkrug" }
+    ]
+  },
+  {
+    "event_id": 30003,
+    "incidents": [
+      { "type": "goal", "minute": 18, "player": "Pedri", "team": "Spain" },
+      { "type": "goal", "minute": 22, "player": "Ronaldo", "team": "Portugal" },
+      { "type": "goal", "minute": 59, "player": "Ferran Torres", "team": "Spain" },
+      { "type": "card", "minute": 44, "player": "Pepe", "card_type": "yellow" },
+      { "type": "substitution", "minute": 75, "player_out": "Benzema", "player_in": "Ramos" }
+    ]
+  },
+  {
+    "event_id": 30004,
+    "incidents": [
+      { "type": "goal", "minute": 50, "player": "Chiesa", "team": "Italy" },
+      { "type": "card", "minute": 20, "player": "Bellingham", "card_type": "yellow" },
+      { "type": "card", "minute": 60, "player": "Rashford", "card_type": "red" },
+      { "type": "substitution", "minute": 65, "player_out": "Kane", "player_in": "Watkins" },
+      { "type": "substitution", "minute": 70, "player_out": "Rice", "player_in": "Phillips" }
+    ]
+  },
+  {
+    "event_id": 30005,
+    "incidents": [
+      { "type": "goal", "minute": 25, "player": "Osimhen", "team": "Nigeria" },
+      { "type": "goal", "minute": 88, "player": "Ayew", "team": "Ghana" },
+      { "type": "card", "minute": 35, "player": "Partey", "card_type": "yellow" },
+      { "type": "card", "minute": 77, "player": "Ndidi", "card_type": "yellow" },
+      { "type": "substitution", "minute": 60, "player_out": "Saka", "player_in": "Iwobi" }
+    ]
+  },
+  {
+    "event_id": 30006,
+    "incidents": [
+      { "type": "goal", "minute": 15, "player": "Kane", "team": "England" },
+      { "type": "goal", "minute": 42, "player": "Mbappe", "team": "France" },
+      { "type": "goal", "minute": 78, "player": "Saka", "team": "England" },
+      { "type": "card", "minute": 55, "player": "Upamecano", "card_type": "yellow" },
+      { "type": "substitution", "minute": 70, "player_out": "Griezmann", "player_in": "Coman" }
+    ]
+  },
+  {
+    "event_id": 30007,
+    "incidents": [
+      { "type": "goal", "minute": 23, "player": "Musiala", "team": "Germany" },
+      { "type": "goal", "minute": 67, "player": "Morata", "team": "Spain" },
+      { "type": "card", "minute": 45, "player": "Rodri", "card_type": "yellow" },
+      { "type": "card", "minute": 89, "player": "Rudiger", "card_type": "yellow" },
+      { "type": "substitution", "minute": 75, "player_out": "Gavi", "player_in": "Olmo" }
+    ]
+  },
+  {
+    "event_id": 30008,
+    "incidents": [
+      { "type": "goal", "minute": 12, "player": "Chiesa", "team": "Italy" },
+      { "type": "goal", "minute": 34, "player": "Retegui", "team": "Italy" },
+      { "type": "goal", "minute": 82, "player": "Barella", "team": "Italy" },
+      { "type": "card", "minute": 28, "player": "Van Dijk", "card_type": "yellow" },
+      { "type": "card", "minute": 67, "player": "De Ligt", "card_type": "yellow" },
+      { "type": "substitution", "minute": 60, "player_out": "Depay", "player_in": "Weghorst" }
+    ]
+  },
+  {
+    "event_id": 30009,
+    "incidents": [
+      { "type": "goal", "minute": 19, "player": "Ronaldo", "team": "Portugal" },
+      { "type": "goal", "minute": 38, "player": "De Bruyne", "team": "Belgium" },
+      { "type": "goal", "minute": 64, "player": "Leao", "team": "Portugal" },
+      { "type": "goal", "minute": 85, "player": "Lukaku", "team": "Belgium" },
+      { "type": "card", "minute": 58, "player": "Pepe", "card_type": "yellow" },
+      { "type": "card", "minute": 90, "player": "Witsel", "card_type": "yellow" },
+      { "type": "substitution", "minute": 72, "player_out": "Felix", "player_in": "Ramos" },
+      { "type": "substitution", "minute": 78, "player_out": "Trossard", "player_in": "Doku" }
+    ]
+  },
+  {
+    "event_id": 30011,
+    "incidents": [
+      { "type": "goal", "minute": 15, "player": "Vinicius Jr", "team": "Brazil" },
+      { "type": "goal", "minute": 38, "player": "Messi", "team": "Argentina" },
+      { "type": "goal", "minute": 45, "player": "Rodrygo", "team": "Brazil" },
+      { "type": "goal", "minute": 73, "player": "Martinez", "team": "Argentina" },
+      { "type": "card", "minute": 28, "player": "Otamendi", "card_type": "yellow", "team": "Argentina" },
+      { "type": "card", "minute": 44, "player": "Marquinhos", "card_type": "yellow", "team": "Brazil" },
+      { "type": "card", "minute": 67, "player": "De Paul", "card_type": "yellow", "team": "Argentina" },
+      { "type": "card", "minute": 82, "player": "Casemiro", "card_type": "yellow", "team": "Brazil" },
+      { "type": "card", "minute": 90, "player": "Messi", "card_type": "yellow", "team": "Argentina" },
+      { "type": "substitution", "minute": 65, "player_out": "Raphinha", "player_in": "Martinelli", "team": "Brazil" },
+      { "type": "substitution", "minute": 70, "player_out": "Di Maria", "player_in": "Garnacho", "team": "Argentina" },
+      { "type": "substitution", "minute": 80, "player_out": "Richarlison", "player_in": "Jesus", "team": "Brazil" }
+    ]
+  }
+  
+]
