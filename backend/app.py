@@ -33,6 +33,6 @@ def admin_only_route():
         "message": "You have admin access",
         "user": request.user
     })
-
+    
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
