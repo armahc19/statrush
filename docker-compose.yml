@@ -26,7 +26,7 @@ services:
 
   db:
     image: postgres:16
-    container_name: statrush_db
+    container_name: statrush
     restart: always
     environment:
       POSTGRES_USER: postgres
