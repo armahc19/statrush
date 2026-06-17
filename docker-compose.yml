@@ -10,6 +10,6 @@ services:
     build: ./frontend
     container_name: statrush_frontend
     ports:
-      - "3001:3000"
+      - "3001:5173"
     depends_on:
       - backend
