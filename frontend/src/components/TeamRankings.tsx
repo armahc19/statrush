@@ -22,7 +22,7 @@ export function TeamRankings() {
 useEffect(() => {
   setLoading(true);
 
-  fetch(`http://153.75.244.15:5001/api/team-stats?page=${page}&size=${size}`)
+  fetch(`https://statrush.meshbase.online/api/team-stats?page=${page}&size=${size}`)
     .then((res) => res.json())
     .then((data) => {
       setTeamRankings(Array.isArray(data) ? data : data.teams || []);

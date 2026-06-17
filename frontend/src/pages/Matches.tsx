@@ -29,7 +29,7 @@ export default function Matches() {
   const size = 10; // items per page
 
   const fetchMatches = (p: number) => {
-    fetch(`http://153.75.244.15:5001/api/matches?page=${p}&size=${size}`)
+    fetch(`https://statrush.meshbase.online/api/matches?page=${p}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         setMatches(data.matches);

@@ -27,7 +27,7 @@ export function Leaderboard() {
   useEffect(() => {
     setLoading(true);
 
-    fetch(`http://153.75.244.15:5001/api/player-stats?page=${page}&size=${size}`)
+    fetch(`https://statrush.meshbase.online/api/player-stats?page=${page}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         setPlayers(Array.isArray(data) ? data : data.players || []);
