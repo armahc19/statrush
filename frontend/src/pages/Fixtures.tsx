@@ -12,7 +12,7 @@ export default function Fixtures() {
   const size = 10;
 
   const fetchFixtures = (p: number) => {
-    fetch(`http://127.0.0.1:5000/api/fixtures?page=${p}&size=${size}`)
+    fetch(`http://153.75.244.15:5001/api/fixtures?page=${p}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         // Map backend objects to Match shape

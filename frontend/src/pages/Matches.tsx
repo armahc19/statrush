@@ -29,7 +29,7 @@ export default function Matches() {
   const size = 10; // items per page
 
   const fetchMatches = (p: number) => {
-    fetch(`http://127.0.0.1:5000/api/matches?page=${p}&size=${size}`)
+    fetch(`http://153.75.244.15:5001/api/matches?page=${p}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         setMatches(data.matches);
