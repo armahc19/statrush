@@ -53,11 +53,11 @@ export function SiteHeader() {
           <button className="grid h-9 w-9 place-items-center rounded-md border border-border/70 bg-surface/60 text-muted-foreground hover:text-foreground">
             <Bell className="h-4 w-4" />
           </button>
-          <div 
-          onClick={() => navigate("/admin/login")}
-          className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-primary to-up text-xs font-bold text-background">
+          <Link to="/admin/login" className="flex items-center gap-2">
+          <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-primary to-up text-xs font-bold text-background">
             SR
           </div>
+          </Link>
         </div>
       </div>
     </header>
