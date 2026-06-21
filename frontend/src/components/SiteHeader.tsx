@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Bell, Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const nav = [
   { to: "/rankings", label: "Rankings" },
@@ -10,6 +11,7 @@ const nav = [
 
 export function SiteHeader() {
   const path = useLocation().pathname;
+   const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
@@ -51,7 +53,9 @@ export function SiteHeader() {
           <button className="grid h-9 w-9 place-items-center rounded-md border border-border/70 bg-surface/60 text-muted-foreground hover:text-foreground">
             <Bell className="h-4 w-4" />
           </button>
-          <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-primary to-up text-xs font-bold text-background">
+          <div 
+          onClick={() => navigate("/admin/login")}
+          className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-primary to-up text-xs font-bold text-background">
             SR
           </div>
         </div>
