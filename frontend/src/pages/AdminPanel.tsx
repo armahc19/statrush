@@ -699,11 +699,20 @@ const fetchBingEvents = async () => {
 
                     {/* Fetch from Bing — only visible when a match is selected */}
           {selectedMatch && (
-            <div className="mt-6 rounded-xl border border-border p-5">
-              <h2 className="mb-3 text-lg font-semibold flex items-center gap-2">
-                <Search size={20} />
-                Fetch Events from Bing
-              </h2>
+            <div className="mt-6 rounded-xl border-2 border-dashed border-up/30 bg-up/5 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 rounded-full bg-up/20 flex items-center justify-center">
+                  <Search size={16} className="text-up" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold">
+                    Fetch Events from Bing
+                  </h2>
+                  <p className="text-xs text-muted-foreground">
+                    Auto-extract goals, assists, yellow & red cards
+                  </p>
+                </div>
+              </div>
 
               <div className="flex gap-2">
                 <div className="flex-1">
@@ -713,22 +722,16 @@ const fetchBingEvents = async () => {
                       setBingUrl(e.target.value);
                       if (bingFetchError) setBingFetchError(null);
                     }}
-                    placeholder="Paste Bing SportsDetails URL..."
+                    placeholder="Paste Bing SportsDetails URL here..."
                     className={`w-full rounded-lg border ${
                       bingFetchError ? 'border-red-500' : 'border-border'
-                    } bg-background px-4 py-2 outline-none focus:border-up text-sm`}
+                    } bg-background px-4 py-3 outline-none focus:border-up text-sm`}
                   />
-                  {bingFetchError && (
-                    <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
-                      <AlertCircle size={12} />
-                      {bingFetchError}
-                    </p>
-                  )}
                 </div>
                 <button
                   onClick={fetchBingEvents}
                   disabled={!bingUrl.trim() || isFetchingBing}
-                  className="rounded-lg bg-up px-4 py-2 text-background transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="rounded-lg bg-up px-6 py-3 text-white font-medium transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 whitespace-nowrap"
                 >
                   {isFetchingBing ? (
                     <>
@@ -748,7 +751,7 @@ const fetchBingEvents = async () => {
               {bingFetchSummary && (
                 <div className="mt-3 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-sm">
                   <div className="flex items-center gap-2 text-green-500 font-medium">
-                    ✅ {bingFetchSummary.loaded} event{bingFetchSummary.loaded !== 1 ? 's' : ''} loaded into queue
+                    ✅ {bingFetchSummary.loaded} event{bingFetchSummary.loaded !== 1 ? 's' : ''} loaded into queue below
                   </div>
                   {bingFetchSummary.skipped > 0 && (
                     <div className="text-muted-foreground mt-1">
@@ -758,7 +761,7 @@ const fetchBingEvents = async () => {
                   )}
                   {bingFetchSummary.teamWarnings > 0 && (
                     <div className="text-yellow-500 mt-1">
-                      ⚠️ {bingFetchSummary.teamWarnings} event{bingFetchSummary.teamWarnings !== 1 ? 's' : ''} with uncertain team assignment — review before submitting
+                      ⚠️ {bingFetchSummary.teamWarnings} event{bingFetchSummary.teamWarnings !== 1 ? 's' : ''} with uncertain team — review before submitting
                     </div>
                   )}
                 </div>
@@ -766,16 +769,15 @@ const fetchBingEvents = async () => {
 
               {/* Bing Fetch Error */}
               {bingFetchError && (
-                <div className="mt-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-sm text-red-500">
+                <div className="mt-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-sm text-red-500 flex items-center gap-2">
+                  <AlertCircle size={14} />
                   {bingFetchError}
                 </div>
               )}
-
-              <p className="mt-2 text-xs text-muted-foreground">
-                Paste a Bing SportsDetails URL to automatically extract goals, assists, yellow cards, and red cards
-              </p>
             </div>
           )}
+
+
 
           {/* Add Event */}
           {selectedMatch && (
