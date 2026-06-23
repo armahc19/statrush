@@ -804,83 +804,10 @@ const fetchBingEvents = async () => {
 
 
               {/* Fetch from Bing — moved inside Add Event section */}
-    <div className="mt-6 rounded-xl border-2 border-dashed border-up/30 bg-up/5 p-5">
-      <div className="flex items-center gap-2 mb-3">
-        <div className="w-8 h-8 rounded-full bg-up/20 flex items-center justify-center">
-          <Search size={16} className="text-up" />
-        </div>
-        <div>
-          <h2 className="text-lg font-semibold">
-            Fetch Events from Bing
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Auto-extract goals, assists, yellow & red cards
-          </p>
-        </div>
-      </div>
-
-      <div className="flex gap-2">
-        <div className="flex-1">
-          <input
-            value={bingUrl}
-            onChange={(e) => {
-              setBingUrl(e.target.value);
-              if (bingFetchError) setBingFetchError(null);
-            }}
-            placeholder="Paste Bing SportsDetails URL here..."
-            className={`w-full rounded-lg border ${
-              bingFetchError ? 'border-red-500' : 'border-border'
-            } bg-background px-4 py-3 outline-none focus:border-up text-sm`}
-          />
-        </div>
-        <button
-          onClick={fetchBingEvents}
-          disabled={!bingUrl.trim() || isFetchingBing}
-          className="rounded-lg bg-up px-6 py-3 text-white font-medium transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 whitespace-nowrap"
-        >
-          {isFetchingBing ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Fetching...
-            </>
-          ) : (
-            <>
-              <Search size={16} />
-              Fetch Events
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Fetch Summary */}
-      {bingFetchSummary && (
-        <div className="mt-3 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-sm">
-          <div className="flex items-center gap-2 text-green-500 font-medium">
-            ✅ {bingFetchSummary.loaded} event{bingFetchSummary.loaded !== 1 ? 's' : ''} loaded into queue below
-          </div>
-          {bingFetchSummary.skipped > 0 && (
-            <div className="text-muted-foreground mt-1">
-              ⏭️ {bingFetchSummary.skipped} event{bingFetchSummary.skipped !== 1 ? 's' : ''} skipped 
-              ({bingFetchSummary.skippedTypes.map(t => t.replace(/_/g, ' ')).join(', ')})
-            </div>
-          )}
-          {bingFetchSummary.teamWarnings > 0 && (
-            <div className="text-yellow-500 mt-1">
-              ⚠️ {bingFetchSummary.teamWarnings} event{bingFetchSummary.teamWarnings !== 1 ? 's' : ''} with uncertain team — review before submitting
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Bing Fetch Error */}
-      {bingFetchError && (
-        <div className="mt-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-sm text-red-500 flex items-center gap-2">
-          <AlertCircle size={14} />
-          {bingFetchError}
-        </div>
-      )}
-    </div>
-
+              <div className="mt-2 text-xs text-muted-foreground">
+                  Press <kbd className="px-1.5 py-0.5 bg-muted/30 rounded text-xs">Enter</kbd> to add, <kbd className="px-1.5 py-0.5 bg-muted/30 rounded text-xs">Esc</kbd> to clear
+              </div>
+    
 
               {/* Event Table */}
               <div className="mt-8 overflow-hidden rounded-xl border border-border">
