@@ -14,6 +14,7 @@ from db import get_conn
 #from import_data import run_import
 import logging
 logger = logging.getLogger(__name__)
+from services import bing_events_extract
 
 #import logging                     # ← NEW
 #logger = logging.getLogger(__name__)   # ← NEW
@@ -1213,3 +1214,81 @@ def get_match_events(match_id):
             "message": str(e)
         }), 500
 
+
+# -----------------------------
+# SCRAPE BING EVENTS
+# -----------------------------
+@stats_bp.route("/scrape/bing-events", methods=["POST"])
+@admin_required
+def scrape_bing_events():
+    """
+    Scrape match events from a Bing SportsDetails URL.
+    
+    Expects JSON:
+    {
+        "url": "https://www.bing.com/sportsdetails?q=...",
+        "home_team": "France",
+        "away_team": "Iraq"
+    }
+    
+    Returns mapped events ready for frontend display.
+    """
+    try:
+        from services.bing_event_mapper import scrape_and_map
+        
+        data = request.get_json()
+        if not data:
+            return jsonify({
+                "status": "error",
+                "message": "Missing request data"
+            }), 400
+        
+        url = data.get("url", "").strip()
+        home_team = data.get("home_team", "").strip()
+        away_team = data.get("away_team", "").strip()
+        
+        # Validate inputs
+        if not url:
+            return jsonify({
+                "status": "error",
+                "message": "Bing URL is required"
+            }), 400
+        
+        if not home_team or not away_team:
+            return jsonify({
+                "status": "error",
+                "message": "Both home_team and away_team are required"
+            }), 400
+        
+        if "bing.com/sportsdetails" not in url:
+            return jsonify({
+                "status": "error",
+                "message": "Invalid URL. Must be a Bing SportsDetails URL"
+            }), 400
+        
+        logger.info(f"Scraping Bing events for {home_team} vs {away_team}")
+        
+        # Call the scraper
+        result = scrape_and_map(url, home_team, away_team)
+        
+        logger.info(
+            f"Bing scrape complete: {result['total_found']} found, "
+            f"{result['total_mapped']} mapped, "
+            f"{len(result['skipped'])} skipped"
+        )
+        
+        return jsonify(result), 200
+        
+    except ImportError as e:
+        logger.exception("Failed to import bing_event_mapper")
+        return jsonify({
+            "status": "error",
+            "message": "Bing scraper module not available. Ensure services/bing_event_mapper.py exists."
+        }), 500
+        
+    except Exception as e:
+        logger.exception("Error scraping Bing events")
+        return jsonify({
+            "status": "error",
+            "message": f"Failed to scrape Bing events: {str(e)}"
+        }), 500
