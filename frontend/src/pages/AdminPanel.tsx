@@ -224,40 +224,21 @@ export default function AdminPanel() {
     };
   }, [search, selectedMatch, performLiveSearch]);
 
-  // Select a match
+    // Select a match
   const selectMatch = async (match: MatchResult) => {
     setSelectedMatch(match);
     setShowResults(false);
     setSearch(match.home_team + " vs " + match.away_team);
     setSearchResults([]);
     setEvents([]);
-    
-    // Fetch events for this match
-    try {
-      const token = localStorage.getItem('sr_admin_token');
-      const response = await fetch(`${API_BASE_URL}/matches/${match.id}/events`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      if (data.status === 'success') {
-        setMatchEvents(data);
-        // Pre-populate team field with home team
-        setTeam(data.home_team);
-        // Focus on player input
-        setTimeout(() => playerInputRef.current?.focus(), 100);
-      }
-    } catch (error) {
-      console.error('Error fetching match events:', error);
-      
-    }
+    setMatchEvents(null);
+    setTeam(match.home_team);
+    setPlayer("");
+    setMinute("");
+    setBingUrl("");
+    setBingFetchError(null);
+    setBingFetchSummary(null);
+    setTimeout(() => playerInputRef.current?.focus(), 100);
   };
 
   // Clear selected match
