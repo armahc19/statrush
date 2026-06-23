@@ -84,6 +84,17 @@ export default function AdminPanel() {
   const playerInputRef = useRef<HTMLInputElement>(null);
   const minuteInputRef = useRef<HTMLInputElement>(null);
 
+  // Bing scraping states
+  const [bingUrl, setBingUrl] = useState("");
+  const [isFetchingBing, setIsFetchingBing] = useState(false);
+  const [bingFetchError, setBingFetchError] = useState<string | null>(null);
+  const [bingFetchSummary, setBingFetchSummary] = useState<{
+    loaded: number;
+    skipped: number;
+    skippedTypes: string[];
+    teamWarnings: number;
+  } | null>(null);
+
   // Check authentication on mount
   useEffect(() => {
     const verifyAuth = async () => {
@@ -315,6 +326,86 @@ export default function AdminPanel() {
       setEvents([]);
     }
   };
+
+  // Fetch events from Bing URL
+const fetchBingEvents = async () => {
+  if (!bingUrl.trim() || !selectedMatch) return;
+
+  setIsFetchingBing(true);
+  setBingFetchError(null);
+  setBingFetchSummary(null);
+
+  try {
+    const token = localStorage.getItem('sr_admin_token');
+    const response = await fetch(`${API_BASE_URL}/scrape/bing-events`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        url: bingUrl.trim(),
+        home_team: selectedMatch.home_team,
+        away_team: selectedMatch.away_team,
+      }),
+    });
+
+    if (response.status === 401) {
+      logout();
+      navigate('/admin/login');
+      return;
+    }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch events');
+    }
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      // Map backend events to MatchEvent format for the queue
+      const mappedEvents: MatchEvent[] = data.events.map((e: any, index: number) => ({
+        id: Date.now() + index,
+        player: e.player || "Unknown",
+        type: e.type as EventType,
+        team: e.team,
+        minute: e.minute,
+      }));
+
+      // Count team assignment warnings
+      const teamWarnings = data.events.filter((e: any) => !e.team_confirmed).length;
+
+      // Add to existing events queue (merge and sort)
+      setEvents((prev) => {
+        const merged = [...prev, ...mappedEvents];
+        return merged.sort((a, b) => a.minute - b.minute);
+      });
+
+      // Set summary for user feedback
+      const skippedTypes: string[] = data.skipped.map((s: any) => s.type);
+      const uniqueSkippedTypes = [...new Set(skippedTypes)] as string[];
+
+      setBingFetchSummary({
+        loaded: data.total_mapped,
+        skipped: data.total_found - data.total_mapped,
+        skippedTypes: uniqueSkippedTypes,
+        teamWarnings: teamWarnings,
+      });
+
+      setBingUrl(""); // Clear input on success
+    } else {
+      setBingFetchError(data.message || "Failed to fetch events");
+    }
+  } catch (error) {
+    console.error('Bing fetch error:', error);
+    setBingFetchError(
+      error instanceof Error ? error.message : "Failed to fetch Bing events"
+    );
+  } finally {
+    setIsFetchingBing(false);
+  }
+};
 
   const submitAll = async () => {
     if (events.length === 0 || !selectedMatch) {
@@ -602,6 +693,87 @@ export default function AdminPanel() {
                   ))
                 )}
               </div>
+            </div>
+          )}
+
+
+                    {/* Fetch from Bing — only visible when a match is selected */}
+          {selectedMatch && (
+            <div className="mt-6 rounded-xl border border-border p-5">
+              <h2 className="mb-3 text-lg font-semibold flex items-center gap-2">
+                <Search size={20} />
+                Fetch Events from Bing
+              </h2>
+
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <input
+                    value={bingUrl}
+                    onChange={(e) => {
+                      setBingUrl(e.target.value);
+                      if (bingFetchError) setBingFetchError(null);
+                    }}
+                    placeholder="Paste Bing SportsDetails URL..."
+                    className={`w-full rounded-lg border ${
+                      bingFetchError ? 'border-red-500' : 'border-border'
+                    } bg-background px-4 py-2 outline-none focus:border-up text-sm`}
+                  />
+                  {bingFetchError && (
+                    <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
+                      <AlertCircle size={12} />
+                      {bingFetchError}
+                    </p>
+                  )}
+                </div>
+                <button
+                  onClick={fetchBingEvents}
+                  disabled={!bingUrl.trim() || isFetchingBing}
+                  className="rounded-lg bg-up px-4 py-2 text-background transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {isFetchingBing ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Fetching...
+                    </>
+                  ) : (
+                    <>
+                      <Search size={16} />
+                      Fetch Events
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Fetch Summary */}
+              {bingFetchSummary && (
+                <div className="mt-3 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-sm">
+                  <div className="flex items-center gap-2 text-green-500 font-medium">
+                    ✅ {bingFetchSummary.loaded} event{bingFetchSummary.loaded !== 1 ? 's' : ''} loaded into queue
+                  </div>
+                  {bingFetchSummary.skipped > 0 && (
+                    <div className="text-muted-foreground mt-1">
+                      ⏭️ {bingFetchSummary.skipped} event{bingFetchSummary.skipped !== 1 ? 's' : ''} skipped 
+                      ({bingFetchSummary.skippedTypes.map(t => t.replace(/_/g, ' ')).join(', ')})
+                    </div>
+                  )}
+                  {bingFetchSummary.teamWarnings > 0 && (
+                    <div className="text-yellow-500 mt-1">
+                      ⚠️ {bingFetchSummary.teamWarnings} event{bingFetchSummary.teamWarnings !== 1 ? 's' : ''} with uncertain team assignment — review before submitting
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Bing Fetch Error */}
+              {bingFetchError && (
+                <div className="mt-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-sm text-red-500">
+                  {bingFetchError}
+                </div>
+              )}
+
+              <p className="mt-2 text-xs text-muted-foreground">
+                Paste a Bing SportsDetails URL to automatically extract goals, assists, yellow cards, and red cards
+              </p>
             </div>
           )}
 
